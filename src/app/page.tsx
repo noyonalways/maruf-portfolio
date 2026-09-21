@@ -15,7 +15,7 @@ import { TrustMarquee } from "@/components/sections/trust-marquee";
 import { ValuesGrid, WhyUs } from "@/components/sections/values-grid";
 import { Button } from "@/components/ui/button";
 import { generalFaqs } from "@/content/company";
-import { getFeaturedPosts } from "@/content/posts";
+import { getFeaturedBlogPosts } from "@/content/blogs";
 import { buildMetadata, faqSchema } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
@@ -26,7 +26,7 @@ export const metadata = buildMetadata({
 });
 
 export default function HomePage() {
-  const featuredPosts = getFeaturedPosts();
+  const featuredPosts = getFeaturedBlogPosts();
 
   return (
     <>

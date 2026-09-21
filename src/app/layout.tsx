@@ -6,9 +6,21 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { ogImageUrl, personSchema, websiteSchema } from "@/lib/seo";
+import {
+  ogImageUrl,
+  organizationSchema,
+  personSchema,
+  rssPath,
+  websiteSchema,
+} from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
+
+const googleVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
+const bingVerification = process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION;
+const otherVerification = bingVerification
+  ? { "msvalidate.01": bingVerification }
+  : undefined;
 
 const sans = Plus_Jakarta_Sans({
   variable: "--font-sans",
@@ -41,7 +53,14 @@ export const metadata: Metadata = {
   creator: siteConfig.name,
   publisher: siteConfig.name,
   category: "Digital Marketing",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": rssPath },
+  },
+  verification: {
+    google: googleVerification,
+    other: otherVerification ?? {},
+  },
   openGraph: {
     type: "website",
     locale: siteConfig.locale,
@@ -120,6 +139,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Toaster position="top-center" richColors closeButton />
         </ThemeProvider>
         <JsonLd data={personSchema()} />
+        <JsonLd data={organizationSchema()} />
         <JsonLd data={websiteSchema()} />
       </body>
     </html>

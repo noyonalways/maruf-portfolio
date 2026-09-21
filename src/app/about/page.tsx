@@ -19,11 +19,11 @@ import { ValuesGrid, WhyUs } from "@/components/sections/values-grid";
 import { Button } from "@/components/ui/button";
 import { milestones, mission, vision } from "@/content/company";
 import { services } from "@/content/services";
+import { about } from "@/content/site";
 import { absoluteUrl, breadcrumbSchema, buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 
-const description =
-  "Md. Maruf Mondol is a digital marketer blending creativity, technology and strategic thinking to deliver digital marketing, SEO, design, web development and business automation.";
+const description = about.heroDescription;
 
 export const metadata = buildMetadata({
   title: "About Md. Maruf Mondol",
@@ -41,14 +41,6 @@ export const metadata = buildMetadata({
 const breadcrumbs = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
-];
-
-const skills = [
-  { label: "SEO & Organic Growth", value: 95 },
-  { label: "Paid Media & PPC", value: 92 },
-  { label: "Conversion Optimization", value: 88 },
-  { label: "Analytics & Reporting", value: 90 },
-  { label: "Marketing Automation", value: 85 },
 ];
 
 const profileFacts = [
@@ -98,11 +90,11 @@ export default function AboutPage() {
         eyebrow="About me"
         title={
           <>
-            I help businesses grow online with work that is{" "}
-            <span className="text-gradient">measured, not guessed</span>
+            {about.heroTitle}{" "}
+            <span className="text-gradient">{about.heroTitleHighlight}</span>
           </>
         }
-        description={description}
+        description={about.heroDescription}
         breadcrumbs={breadcrumbs}
       >
         <div className="flex flex-wrap gap-3 pt-2">
@@ -126,32 +118,9 @@ export default function AboutPage() {
               title="Success lives at the intersection of vision, innovation and execution"
             />
             <div className="flex flex-col gap-4 text-base leading-relaxed text-muted-foreground">
-              <p>
-                I started out in digital marketing the way most people do —
-                learning by shipping work and watching the numbers. What stuck
-                with me was how often businesses were spending real money on
-                tactics that were never connected to a clear outcome.
-              </p>
-              <p>
-                So I built my practice around a simple idea: start with your
-                numbers, not with a service list. Understand what a customer is
-                worth, what a lead costs, and what margin you have to work with —
-                then choose the channels, creative and technology that make
-                sense for your situation.
-              </p>
-              <p>
-                Today I work with businesses and individuals across digital
-                marketing, SEO, graphics design, web development and business
-                automation. I believe success lies at the intersection of
-                vision, innovation and execution, and that the work should be
-                judged by the growth it produces.
-              </p>
-              <p>
-                Whether you run a small business or a large corporation, I work
-                closely with you to create customized solutions that align with
-                your objectives — and I stay close enough to be accountable for
-                the results.
-              </p>
+              {about.story.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
             </div>
 
             <figure className="mt-2 rounded-2xl border-l-4 border-brand bg-brand/5 px-6 py-5">
@@ -160,8 +129,7 @@ export default function AboutPage() {
                 aria-hidden="true"
               />
               <blockquote className="font-heading text-lg leading-snug font-medium text-pretty">
-                I don&apos;t just provide services — I build lasting
-                partnerships that help my clients achieve meaningful success.
+                {about.quote}
               </blockquote>
               <figcaption className="mt-3 text-sm text-muted-foreground">
                 {siteConfig.name}, {siteConfig.role}
@@ -296,7 +264,7 @@ export default function AboutPage() {
             </div>
 
             <ul className="flex flex-col gap-3.5">
-              {skills.map((skill) => (
+              {about.skills.map((skill) => (
                 <li key={skill.label} className="flex flex-col gap-1.5">
                   <div className="flex items-center justify-between text-sm">
                     <span className="font-medium">{skill.label}</span>

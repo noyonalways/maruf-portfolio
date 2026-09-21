@@ -3,13 +3,14 @@ import { ArrowRightIcon, PhoneIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/reveal";
+import { cta } from "@/content/site";
 import { siteConfig } from "@/lib/site";
 
 export function CtaBand({
-  title = "Ready to grow your business online?",
-  description = "Tell me where you are today and where you want to be. I will come back with a clear, honest plan — no jargon, no pressure.",
-  primaryLabel = "Book a free strategy call",
-  primaryHref = "/contact",
+  title = cta.title,
+  description = cta.description,
+  primaryLabel = cta.primaryLabel,
+  primaryHref = cta.primaryHref,
 }: {
   title?: string;
   description?: string;

@@ -14,6 +14,8 @@ type SeoInput = {
 };
 
 export const defaultOgImage = "/og";
+export const rssPath = "/rss.xml";
+export const logoPath = "/og/logo";
 
 export function absoluteUrl(path = "/"): string {
   const base = siteConfig.url.replace(/\/$/, "");
@@ -40,16 +42,20 @@ export function buildMetadata({
   noIndex,
 }: SeoInput): Metadata {
   const url = absoluteUrl(path);
-  const ogTitle = title.includes(siteConfig.name)
+  const titleIncludesName = title.includes(siteConfig.name);
+  const ogTitle = titleIncludesName
     ? title
     : `${title} | ${siteConfig.name}`;
   const image = ogImageUrl(title, description);
 
   return {
-    title,
+    title: titleIncludesName ? { absolute: title } : title,
     description,
     keywords: keywords ? [...keywords] : [...siteConfig.keywords],
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      types: { "application/rss+xml": absoluteUrl(rssPath) },
+    },
     robots: noIndex
       ? { index: false, follow: false }
       : {
@@ -139,6 +145,31 @@ export function personSchema() {
   };
 }
 
+export function organizationSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
+    name: siteConfig.name,
+    alternateName: siteConfig.shortName,
+    url: siteConfig.url,
+    email: siteConfig.email,
+    telephone: siteConfig.phone,
+    founder: { "@id": `${siteConfig.url}/#person` },
+    logo: {
+      "@type": "ImageObject",
+      "@id": `${siteConfig.url}/#logo`,
+      url: absoluteUrl(logoPath),
+      contentUrl: absoluteUrl(logoPath),
+      width: 512,
+      height: 512,
+      caption: siteConfig.name,
+    },
+    image: { "@id": `${siteConfig.url}/#logo` },
+    sameAs: Object.values(siteConfig.social),
+  };
+}
+
 export function websiteSchema() {
   return {
     "@context": "https://schema.org",
@@ -147,7 +178,7 @@ export function websiteSchema() {
     url: siteConfig.url,
     name: siteConfig.name,
     description: siteConfig.description,
-    publisher: { "@id": `${siteConfig.url}/#person` },
+    publisher: { "@id": `${siteConfig.url}/#organization` },
     inLanguage: "en",
   };
 }
@@ -246,8 +277,8 @@ export function articleSchema(input: {
       name: input.authorName,
       url: absoluteUrl("/about"),
     },
-    publisher: { "@id": `${siteConfig.url}/#person` },
-    image: absoluteUrl(defaultOgImage),
+    publisher: { "@id": `${siteConfig.url}/#organization` },
+    image: ogImageUrl(input.title, input.description),
     articleSection: input.section,
     keywords: input.keywords?.join(", "),
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(input.path) },

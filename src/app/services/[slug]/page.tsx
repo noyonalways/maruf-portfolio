@@ -19,7 +19,7 @@ import { FaqSection } from "@/components/sections/faq-section";
 import { ServiceCard } from "@/components/service-card";
 import { ServiceIcon } from "@/components/service-icon";
 import { Button } from "@/components/ui/button";
-import { getPostsByCategory, getSortedPosts } from "@/content/posts";
+import { getBlogPostsByCategory, getSortedBlogPosts } from "@/content/blogs";
 import { getRelatedServices, getService, getServiceSlugs } from "@/content/services";
 import {
   absoluteUrl,
@@ -110,9 +110,11 @@ export default async function ServiceDetailPage(
 
   const relatedServices = getRelatedServices(service);
   const categorySlug = categoryForService[service.slug];
-  const categoryPosts = categorySlug ? getPostsByCategory(categorySlug) : [];
+  const categoryPosts = categorySlug
+    ? getBlogPostsByCategory(categorySlug)
+    : [];
   const relatedPosts = (
-    categoryPosts.length >= 3 ? categoryPosts : getSortedPosts()
+    categoryPosts.length >= 3 ? categoryPosts : getSortedBlogPosts()
   ).slice(0, 3);
 
   return (

@@ -3,7 +3,7 @@ import { ArrowRightIcon, CompassIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { services } from "@/content/services";
-import { postCategories } from "@/content/posts";
+import { blogCategories } from "@/content/blogs";
 
 export default function NotFound() {
   return (
@@ -56,7 +56,7 @@ export default function NotFound() {
             ))}
           </div>
           <div className="flex flex-wrap justify-center gap-2">
-            {postCategories.map((category) => (
+            {blogCategories.map((category) => (
               <Link
                 key={category.slug}
                 href={`/blog/category/${category.slug}`}

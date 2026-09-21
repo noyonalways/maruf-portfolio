@@ -7,7 +7,7 @@ import { PageHero } from "@/components/page-hero";
 import { PostCard } from "@/components/post-card";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
-import { getSortedPosts, postCategories } from "@/content/posts";
+import { getSortedBlogPosts, blogCategories } from "@/content/blogs";
 import { absoluteUrl, breadcrumbSchema, buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 import { cn } from "cn";
@@ -33,7 +33,7 @@ const breadcrumbs = [
 ];
 
 export default function BlogPage() {
-  const posts = getSortedPosts();
+  const posts = getSortedBlogPosts();
   const [featured, ...rest] = posts;
 
   const blogSchema = {
@@ -82,7 +82,7 @@ export default function BlogPage() {
               All articles
             </Link>
           </li>
-          {postCategories.map((category) => (
+          {blogCategories.map((category) => (
             <li key={category.slug}>
               <Link
                 href={`/blog/category/${category.slug}`}

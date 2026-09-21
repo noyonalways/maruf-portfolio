@@ -5,7 +5,7 @@ import { Reveal } from "@/components/reveal";
 import { ServiceIcon } from "@/components/service-icon";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "cn";
-import { author, getCategory, type Post } from "@/content/posts";
+import { author, getBlogCategory, type BlogPost } from "@/content/blogs";
 import { formatDate, toIsoDate } from "@/lib/format";
 
 export function PostCard({
@@ -14,12 +14,12 @@ export function PostCard({
   featured = false,
   className,
 }: {
-  post: Post;
+  post: BlogPost;
   index?: number;
   featured?: boolean;
   className?: string;
 }) {
-  const category = getCategory(post.category);
+  const category = getBlogCategory(post.category);
 
   return (
     <Reveal
@@ -97,8 +97,8 @@ export function PostCard({
   );
 }
 
-export function PostCardCompact({ post }: { post: Post }) {
-  const category = getCategory(post.category);
+export function PostCardCompact({ post }: { post: BlogPost }) {
+  const category = getBlogCategory(post.category);
   return (
     <Link
       href={`/blog/${post.slug}`}

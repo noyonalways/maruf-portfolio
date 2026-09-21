@@ -9,23 +9,23 @@ import { PageHero } from "@/components/page-hero";
 import { PostCard } from "@/components/post-card";
 import { Button } from "@/components/ui/button";
 import {
-  getCategory,
-  getPostsByCategory,
-  postCategories,
-} from "@/content/posts";
+  blogCategories,
+  getBlogCategory,
+  getBlogPostsByCategory,
+} from "@/content/blogs";
 import { absoluteUrl, breadcrumbSchema, buildMetadata } from "@/lib/seo";
 import { siteConfig } from "@/lib/site";
 import { cn } from "cn";
 
 export function generateStaticParams() {
-  return postCategories.map((category) => ({ category: category.slug }));
+  return blogCategories.map((category) => ({ category: category.slug }));
 }
 
 export async function generateMetadata(
   props: PageProps<"/blog/category/[category]">,
 ): Promise<Metadata> {
   const { category: categorySlug } = await props.params;
-  const category = getCategory(categorySlug);
+  const category = getBlogCategory(categorySlug);
 
   if (!category) {
     return buildMetadata({
@@ -52,13 +52,13 @@ export default async function CategoryPage(
   props: PageProps<"/blog/category/[category]">,
 ) {
   const { category: categorySlug } = await props.params;
-  const category = getCategory(categorySlug);
+  const category = getBlogCategory(categorySlug);
 
   if (!category) {
     notFound();
   }
 
-  const posts = getPostsByCategory(category.slug);
+  const posts = getBlogPostsByCategory(category.slug);
 
   const breadcrumbs = [
     { name: "Home", path: "/" },
@@ -109,7 +109,7 @@ export default async function CategoryPage(
               All articles
             </Link>
           </li>
-          {postCategories.map((item) => (
+          {blogCategories.map((item) => (
             <li key={item.slug}>
               <Link
                 href={`/blog/category/${item.slug}`}

@@ -1,7 +1,7 @@
 import { LightbulbIcon, QuoteIcon } from "lucide-react";
 
 import { cn } from "cn";
-import type { ContentBlock } from "@/content/posts";
+import type { ContentBlock } from "@/content/blogs";
 import { slugify } from "@/lib/format";
 
 export function extractHeadings(blocks: ContentBlock[]) {

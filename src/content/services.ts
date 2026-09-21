@@ -1,3 +1,20 @@
+/**
+ * ============================================================================
+ *  SERVICES — EDIT THIS FILE
+ * ============================================================================
+ *  Each service below is one card on the Services page and its own page, e.g.
+ *  /services/digital-marketing.
+ *
+ *  To edit a service: change the text between the "quotes".
+ *  To add a service: copy a whole { ... } block, paste it after the last one,
+ *  then change the values. Keep the "slug" short, lowercase and unique (use
+ *  dashes instead of spaces), and point "related" at the slugs of other
+ *  services you want to link to.
+ *
+ *  "icon" must be one of: megaphone, palette, code, workflow
+ * ============================================================================
+ */
+
 export type ServiceFeature = {
   title: string;
   description: string;
@@ -19,22 +36,39 @@ export type ServiceStat = {
 };
 
 export type Service = {
+  /** Short, lowercase id used in the URL (dashes, no spaces). */
   slug: string;
+  /** Full service name. */
   title: string;
+  /** Shorter name used in menus and cards. */
   shortTitle: string;
+  /** One-line promise shown on cards. */
   tagline: string;
+  /** One-paragraph summary used in previews and search results. */
   summary: string;
+  /** Paragraphs shown at the top of the service page. */
   description: string[];
+  /** One of: megaphone, palette, code, workflow. */
   icon: ServiceIconName;
+  /** Tailwind gradient classes for the service icon. */
   accent: string;
+  /** Starting price shown on the card, e.g. "$499/mo". */
   priceFrom: string;
+  /** Words search engines use to understand this service. */
   keywords: string[];
+  /** Three short selling points. */
   highlights: string[];
+  /** What is included — the feature cards. */
   features: ServiceFeature[];
+  /** The numbered "how it works" steps. */
   process: ServiceProcessStep[];
+  /** The deliverables checklist. */
   deliverables: string[];
+  /** Three small stats shown on the service page. */
   stats: ServiceStat[];
+  /** Questions shown at the bottom of the service page. */
   faqs: ServiceFaq[];
+  /** Slugs of other services to link to. */
   related: string[];
 };
 

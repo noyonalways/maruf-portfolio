@@ -4,7 +4,7 @@ import { ArrowUpRightIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react"
 import { Logo } from "@/components/logo";
 import { SocialIcon, type SocialName } from "@/components/social-icons";
 import { services } from "@/content/services";
-import { postCategories } from "@/content/posts";
+import { blogCategories } from "@/content/blogs";
 import { mainNav, siteConfig } from "@/lib/site";
 
 const socials: { name: SocialName; href: string; label: string }[] = [
@@ -99,7 +99,7 @@ export function SiteFooter() {
                   </Link>
                 </li>
               ))}
-            {postCategories.slice(0, 3).map((category) => (
+            {blogCategories.slice(0, 3).map((category) => (
               <li key={category.slug}>
                 <Link
                   href={`/blog/category/${category.slug}`}

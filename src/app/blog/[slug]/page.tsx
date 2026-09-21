@@ -22,12 +22,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   author,
-  getCategory,
-  getPost,
-  getPostSlugs,
-  getRelatedPosts,
-  postCategories,
-} from "@/content/posts";
+  blogCategories,
+  getBlogCategory,
+  getBlogPost,
+  getBlogPostSlugs,
+  getRelatedBlogPosts,
+} from "@/content/blogs";
 import { formatDate, toIsoDate } from "@/lib/format";
 import {
   articleSchema,
@@ -39,14 +39,14 @@ import { siteConfig } from "@/lib/site";
 import { cn } from "cn";
 
 export function generateStaticParams() {
-  return getPostSlugs().map((slug) => ({ slug }));
+  return getBlogPostSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata(
   props: PageProps<"/blog/[slug]">,
 ): Promise<Metadata> {
   const { slug } = await props.params;
-  const post = getPost(slug);
+  const post = getBlogPost(slug);
 
   if (!post) {
     return buildMetadata({
@@ -71,15 +71,15 @@ export async function generateMetadata(
 
 export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
   const { slug } = await props.params;
-  const post = getPost(slug);
+  const post = getBlogPost(slug);
 
   if (!post) {
     notFound();
   }
 
-  const category = getCategory(post.category);
+  const category = getBlogCategory(post.category);
   const headings = extractHeadings(post.content);
-  const relatedPosts = getRelatedPosts(post);
+  const relatedPosts = getRelatedBlogPosts(post);
 
   const breadcrumbs = [
     { name: "Home", path: "/" },
@@ -278,7 +278,7 @@ export default async function BlogPostPage(props: PageProps<"/blog/[slug]">) {
                 Explore by topic
               </p>
               <ul className="mt-3 flex flex-col gap-2">
-                {postCategories.map((item) => (
+                {blogCategories.map((item) => (
                   <li key={item.slug}>
                     <Link
                       href={`/blog/category/${item.slug}`}

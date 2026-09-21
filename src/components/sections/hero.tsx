@@ -9,6 +9,7 @@ import {
 
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
+import { hero } from "@/content/site";
 import { siteConfig } from "@/lib/site";
 import { cn } from "cn";
 
@@ -38,25 +39,22 @@ export function Hero() {
 
           <Reveal delay={60}>
             <h1 className="font-heading text-4xl leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
-              Smart digital marketing that drives{" "}
-              <span className="text-gradient">real growth</span>
+              {hero.headline}{" "}
+              <span className="text-gradient">{hero.headlineHighlight}</span>
             </h1>
           </Reveal>
 
           <Reveal delay={120}>
             <p className="max-w-xl text-lg leading-relaxed text-pretty text-muted-foreground">
-              I&apos;m {siteConfig.name}. I blend creativity, technology and
-              strategic thinking to deliver digital marketing, SEO, design, web
-              development and business automation that produce measurable
-              results — not busywork.
+              {hero.intro}
             </p>
           </Reveal>
 
           <Reveal delay={180} className="w-full">
             <div className="flex flex-col gap-3 sm:flex-row">
               <Button asChild size="lg" className="h-11 px-6">
-                <Link href="/contact">
-                  Book a free strategy call
+                <Link href={hero.primaryCta.href}>
+                  {hero.primaryCta.label}
                   <ArrowRightIcon className="size-4" />
                 </Link>
               </Button>
@@ -66,9 +64,9 @@ export function Hero() {
                 variant="outline"
                 className="h-11 px-6"
               >
-                <Link href="/services">
+                <Link href={hero.secondaryCta.href}>
                   <PlayIcon className="size-4" />
-                  Explore my services
+                  {hero.secondaryCta.label}
                 </Link>
               </Button>
             </div>
@@ -106,7 +104,7 @@ export function Hero() {
                     ))}
                   </span>
                   <span className="text-xs text-muted-foreground">
-                    Rated 5.0 by 48+ businesses
+                    {hero.rating}
                   </span>
                 </div>
               </div>

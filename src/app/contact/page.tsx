@@ -15,6 +15,7 @@ import { PageHero } from "@/components/page-hero";
 import { Reveal } from "@/components/reveal";
 import { SocialIcon, type SocialName } from "@/components/social-icons";
 import { generalFaqs } from "@/content/company";
+import { contact } from "@/content/site";
 import {
   absoluteUrl,
   breadcrumbSchema,
@@ -98,11 +99,11 @@ export default function ContactPage() {
         eyebrow="Contact me"
         title={
           <>
-            Let&apos;s talk about your{" "}
-            <span className="text-gradient">growth</span>
+            {contact.heroTitle}{" "}
+            <span className="text-gradient">{contact.heroTitleHighlight}</span>
           </>
         }
-        description="If you are ready to take your business to the next level with digital solutions that actually get measured, I am here to help. Tell me where you are and I will show you what is possible."
+        description={contact.heroDescription}
         breadcrumbs={breadcrumbs}
       />
 
