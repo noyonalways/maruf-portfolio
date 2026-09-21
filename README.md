@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Md. Maruf Mondol — Portfolio
 
-## Getting Started
+Personal portfolio and blog for **Md. Maruf Mondol**, a digital marketer working across
+digital marketing, SEO, graphics design, web development and business automation.
 
-First, run the development server:
+Built with Next.js (App Router), React, TypeScript, Tailwind CSS v4 and shadcn/ui.
+
+## Tech stack
+
+- **Next.js 16** (App Router, Turbopack, React 19)
+- **TypeScript** with generated route types (`PageProps`, `LayoutProps`, `RouteContext`)
+- **Tailwind CSS v4** with a custom brand theme and dark mode via `next-themes`
+- **shadcn/ui** components (Radix-based, "nova" preset) + `lucide-react`
+- **react-hook-form** + **zod** for the contact form
+- **pnpm** as the package manager
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the dev server (Turbopack) |
+| `pnpm build` | Production build |
+| `pnpm start` | Serve the production build |
+| `pnpm lint` | Run ESLint |
+| `pnpm exec tsc --noEmit` | Typecheck |
+| `pnpm exec next typegen` | Regenerate Next.js route types |
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+  app/
+    page.tsx                     Home
+    about/page.tsx               About Md. Maruf Mondol
+    services/page.tsx            Services index
+    services/[slug]/page.tsx     4 dedicated service pages (data-driven)
+    blog/page.tsx                Blog listing
+    blog/[slug]/page.tsx         Blog posts with TOC
+    blog/category/[category]/    Blog category pages
+    contact/page.tsx             Contact page
+    api/contact/route.ts         Contact form endpoint (zod validated + rate limited)
+    og/route.tsx                 Dynamic Open Graph image
+    sitemap.ts, robots.ts, manifest.ts, icon.svg
+  components/                    UI, layout and section components
+  content/                       Services, posts and company content data
+  lib/                           Site config, SEO helpers, validation, utils
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Content
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+All copy is data-driven so it can be edited without touching components:
 
-## Deploy on Vercel
+- `src/content/services.ts` — the four services, their features, process, deliverables and FAQs
+- `src/content/posts.ts` — blog posts as structured content blocks, categories and author
+- `src/content/company.ts` — mission, vision, values, process, testimonials, milestones and FAQs
+- `src/lib/site.ts` — site name, contact details, social links and navigation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Profile photo
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The portrait shown on the home page and About page is a single, easily swappable file:
+
+1. Replace `public/maruf-mondol.png` with the real photo (a portrait crop, ideally
+   around 800×1000), keeping the same filename, **or**
+2. Drop a new file into `public/` and update `siteConfig.photo` in `src/lib/site.ts`.
+
+The photo is also used for the `Person` structured data, so updating it once keeps
+the pages and SEO in sync.
+
+## SEO
+
+- Per-page metadata via a shared `buildMetadata` helper (canonical URLs, Open Graph, Twitter cards)
+- JSON-LD structured data: `Person`, `WebSite`, `ProfessionalService`, `Service`, `BlogPosting`,
+  `FAQPage`, `BreadcrumbList`, `CollectionPage`, `AboutPage`, `ProfilePage`, `ContactPage`
+- Dynamic Open Graph images generated at `/og`
+- Auto-generated `sitemap.xml`, `robots.txt` and web manifest
+
+## Environment variables
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site URL (defaults to `https://marufmondol.com`) |
+| `CONTACT_WEBHOOK_URL` | Optional webhook that contact submissions are POSTed to |
+
+Without `CONTACT_WEBHOOK_URL`, contact submissions are validated, rate limited and logged
+server-side so the form works out of the box.
+
+## Deployment
+
+The site is a standard Next.js app and deploys anywhere Next.js is supported
+(Vercel, Cloudflare, a Node host, or Docker). Set `NEXT_PUBLIC_SITE_URL` to your
+production domain before building.
