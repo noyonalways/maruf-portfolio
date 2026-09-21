@@ -6,6 +6,12 @@ automation.
 
 Built with Next.js (App Router), React, TypeScript, Tailwind CSS v4 and shadcn/ui.
 
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs&logoColor=white&style=flat-square)](https://nextjs.org)
+[![React](https://img.shields.io/badge/React-19-087EA4?logo=react&logoColor=white&style=flat-square)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white&style=flat-square)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)](https://tailwindcss.com)
+[![Made by Noyon Rahman](https://img.shields.io/badge/Made_by-Noyon_Rahman-2563EB?style=flat-square)](https://noyonrahman.com)
+
 > **Designed & developed by [Noyon Rahman](https://noyonrahman.com)** ·
 > [GitHub](https://github.com/noyonalways)
 
